@@ -1,0 +1,555 @@
+\documentclass[12pt,a4paper,oneside]{book}
+\renewcommand{\baselinestretch}{1.5}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}    % needed for including graphics e.g. EPS, PS
+
+\usepackage{tikz}
+\usepackage{tikzsymbols}
+%\usepackage{makeshape}% packages for flowchart, it is too old to describe my algorithm
+%\usepackage{pgf}% Flowchart doesn't allow for parameters, data types and recursion 
+%\usepackage{flowchart}% It won't use in this thesis.
+%\usetikzlibrary{arrows}
+%\tikzset{>=latex}
+
+\usepackage{pgfgantt}% draw gantt chart
+\usepackage{afterpage}% use to force figure in one page
+
+\usepackage{enumerate}
+
+%\usepackage{pgf}  %needed for venn diagram
+\usepackage{pdflscape}% change certain pages to landscape
+\usepackage[disable]{todonotes}% It is used to hide the section.
+
+\usepackage[framemethod=tikz]{mdframed}% used to created framed box
+%\usepackage{fourier}%This package change the font in the whole thesis, be careful to use it
+\usetikzlibrary{calc}
+\tikzset{
+  warningsymbol/.style={
+      rectangle,
+      draw=white,
+      fill=white,
+      scale=1,
+      overlay}
+}
+
+\mdfdefinestyle{B}{%
+hidealllines=true,leftline=true,
+skipabove=12,skipbelow=12pt,
+innertopmargin=0.4em,%
+innerbottommargin=0.4em,%
+innerrightmargin=0.7em,%
+rightmargin=0.7em,%
+innerleftmargin=2.2em,%1.7em
+leftmargin=0.7em,%
+middlelinewidth=.2em,%
+startinnercode={\baselineskip=1.5cm},
+linecolor=red,%
+fontcolor=black,%
+firstextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$)
+node[warningsymbol] {\Coffeecup\mbox{CH-0}};},%
+secondextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$)
+node[warningsymbol] {\Coffeecup\mbox{CH-0}};},%
+middleextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$)
+node[warningsymbol] {\Coffeecup\mbox{CH-0}};},%
+singleextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$)
+node[warningsymbol] {\mbox{B?}};},%
+}
+\newmdenv[style=B]{Bustard}
+
+\mdfdefinestyle{ch1}{%
+hidealllines=true,leftline=true,
+skipabove=12,skipbelow=12pt,
+innertopmargin=0.4em,%
+innerbottommargin=0.4em,%
+innerrightmargin=0.7em,%
+rightmargin=0.7em,%
+innerleftmargin=2.5em,%1.7em
+leftmargin=0.7em,%
+middlelinewidth=.2em,%
+startinnercode={\baselineskip=1.5cm},
+linecolor=pink,%
+fontcolor=black,%
+firstextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$)
+node[warningsymbol] {\Coffeecup\mbox{CH-1}};},%
+secondextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$)
+node[warningsymbol] {\Coffeecup\mbox{CH-1}};},%
+middleextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$)
+node[warningsymbol] {\Coffeecup\mbox{CH-1}};},%
+singleextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$)
+node[warningsymbol] {\Coffeecup\mbox{CH-1}};},%
+}
+\newmdenv[style=ch1]{CH1}
+
+\mdfdefinestyle{pfv}{%
+hidealllines=true,leftline=true,
+skipabove=12,skipbelow=12pt,
+innertopmargin=0.4em,%
+innerbottommargin=0.4em,%
+innerrightmargin=0.7em,%
+rightmargin=0.7em,%
+innerleftmargin=2.3em,%1.7em
+leftmargin=0.7em,%
+middlelinewidth=.2em,%
+linecolor=blue,%
+fontcolor=black,%
+firstextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$)
+node[warningsymbol] {\Smiley[][blue]\mbox{PFV}};},%
+secondextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$)
+node[warningsymbol] {\Smiley[][blue]\mbox{PFV}};},%
+middleextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$)
+node[warningsymbol] {\Smiley[][blue]\mbox{PFV}};},%
+singleextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$)
+node[warningsymbol] {\Smiley[][blue]\mbox{PFV }};},%
+}
+\newmdenv[style=pfv]{PFV}
+
+\mdfdefinestyle{done}{%
+hidealllines=true,leftline=true,
+skipabove=12,skipbelow=12pt,
+innertopmargin=0.4em,%
+innerbottommargin=0.4em,%
+innerrightmargin=0.7em,%
+rightmargin=0.7em,%
+innerleftmargin=2.3em,%1.7em
+leftmargin=0.7em,%
+middlelinewidth=.2em,%
+linecolor=green,%
+fontcolor=black,%
+firstextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$)
+node[warningsymbol] {\Smiley[][green]\mbox{CH-F}};},%
+secondextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$)
+node[warningsymbol] {\Smiley[][green]\mbox{CH-F}};},%
+middleextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$)
+node[warningsymbol] {\Smiley[][green]\mbox{CH-F}};},%
+singleextra={\path let \p1=(P), \p2=(O) in ($(\x2,0)+0.5*(0,\y1)$)
+node[warningsymbol] {\Smiley[][green]\mbox{CH-F}};},%
+}
+\newmdenv[style=done]{Done}
+
+\mdfdefinestyle{ADTFrame}{%
+  linecolor=black,
+  outerlinewidth=0.5pt,
+  roundcorner=10pt,
+  innertopmargin=\baselineskip,
+  innerbottommargin=\baselineskip,
+  innerrightmargin=20pt,
+  innerleftmargin=20pt,
+  backgroundcolor=white
+}%
+
+\mdfdefinestyle{JSONData}{%
+  linecolor=black,
+  linewidth=3pt,
+  leftmargin=1cm,
+  rightmargin=1cm
+}%
+
+\usepackage{amsthm, thmtools}
+\usepackage{color}
+\definecolor{def_working_copy}{rgb}{0.66, 0.89, 0.63}
+\definecolor{def_color_britishracinggreen}{rgb}{0.0, 0.26, 0.15}
+\definecolor{thm_color_bulgarianrose}{rgb}{0.28, 0.02, 0.03}
+\definecolor{proof_color_ao}{rgb}{0.0, 0.0, 1.0}
+\definecolor{def_bg}{rgb}{0.98, 0.8, 0.45}
+\definecolor{def_bg_sunset}{rgb}{0.98, 0.84, 0.65}
+\definecolor{def_bg_orange(ryb)}{rgb}{0.98, 0.6, 0.01}
+\definecolor{skyblue}{rgb}{0.53, 0.81, 0.92}
+\definecolor{haskell_code_lightgreen}{rgb}{0.68, 087, 0.68}
+\definecolor{result_lightyellow}{rgb}{1.0, 1.0, 0.4}
+\definecolor{navyblue}{rgb}{0.0, 0.0, 0.5}
+
+\usepackage{xcolor,colortbl}% colorful the table row
+\usepackage{ctable}% set a thick table horizontal line
+\usepackage{array}% set a thick table vertical line
+\newcolumntype{?}{!{\vrule width 1.5pt}}
+
+\declaretheorem[shaded = {bgcolor=pink}]{AlternativelyDisplay}
+\declaretheorem[shaded = {bgcolor=pink}]{Question}
+
+\makeatletter
+\patchcmd\thmt@mklistcmd
+  {\thmt@thmname}
+  {\check@optarg{\thmt@thmname}}
+  {}{}
+\patchcmd\thmt@mklistcmd
+  {\thmt@thmname\ifx}
+  {\check@optarg{\thmt@thmname}\ifx}
+  {}{}
+\protected\def\check@optarg#1{%
+  \@ifnextchar\thmtformatoptarg\@secondoftwo{#1}%
+}
+\makeatother
+
+\declaretheoremstyle[
+  spaceabove=6pt, spacebelow=6pt,
+  headfont=\color{def_color_britishracinggreen}\normalfont\bfseries,
+  notefont=\itshape, 
+  notebraces={(}{)},
+  bodyfont=\normalfont,
+  numberwithin=chapter,
+  postheadspace=1em
+]{defstyle}
+ \declaretheorem[style=defstyle, shaded={bgcolor=def_bg}]{Definition}
+
+\declaretheoremstyle[
+  spaceabove=6pt, spacebelow=6pt,
+  headfont=\color{thm_color_bulgarianrose}\normalfont\bfseries,
+  notefont=\mdseries, notebraces={(}{)},
+  bodyfont=\normalfont,
+  numberwithin=section,
+  postheadspace=1em
+]{TheoremStyle}
+ \declaretheorem[style=TheoremStyle]{Theorem}
+
+\declaretheoremstyle[
+  spaceabove=6pt, spacebelow=6pt,
+  headfont=\color{proof_color_ao}\itshape\bfseries,
+  notefont=\mdseries, notebraces={(}{)},
+  bodyfont=\normalfont,
+  postheadspace=1em,
+  numbered=no,
+  qed=\qedsymbol
+]{proofStyle}
+ \declaretheorem[style=proofStyle]{Proof}
+
+\declaretheoremstyle[
+  spaceabove=6pt, spacebelow=6pt,
+  headfont=\normalfont\bfseries,
+  notefont=\mdseries, notebraces={(}{)},
+  bodyfont=\normalfont,
+  numberwithin=section,
+  postheadspace=1em,
+  qed=$\blacksquare$
+]{ExampleStyle}
+ \declaretheorem[style=ExampleStyle]{Example}
+
+\usepackage{listings}% needed for my source code
+\usepackage{courier}%font in java language
+
+% Java code environment
+\definecolor{light-silver}{RGB}{218,218,218}
+\lstnewenvironment{javacode}{%
+  \lstset{%
+            language=Java,
+            basicstyle={\footnotesize\tt},
+            keywordstyle=\color{blue!100},
+            commentstyle=\color{red!70}, 
+            frame=shadowbox,
+            rulesepcolor=\color{red!20!green!20!blue!20},
+            backgroundcolor=\color{light-silver}
+           }
+}{}
+\usepackage{fancyvrb}
+
+\newsavebox{\PYbgbox}
+\newenvironment{haskell_code_box}%
+ {%\noindent%
+  \renewcommand\theFancyVerbLine{%
+  \textcolor{blue}{\small\arabic{FancyVerbLine}}}%line number color
+  \begin{lrbox}{\PYbgbox}%
+  \begin{minipage}[t]{\linewidth-7\fboxsep}%
+  \color{black}% text color
+  }
+  {\ignorespacesafterend%
+  \end{minipage}%
+  \end{lrbox}%
+  \colorbox{haskell_code_lightgreen}{\usebox{\PYbgbox}}
+  }
+
+\DefineVerbatimEnvironment%
+{haskellcode}{Verbatim}
+{fontfamily=courier,
+ fontseries=b,
+ fontsize=\footnotesize,
+ gobble=2,
+ baselinestretch=1,
+% numbers=left,
+% numbersep=2mm,
+ commandchars=\\\{\},
+ codes={\catcode`$=3\catcode`^=7}
+}
+
+\newsavebox{\Resbox}
+\newenvironment{result_box}%
+ {\noindent%
+  \renewcommand\theFancyVerbLine{%
+  \textcolor{blue}{\small\arabic{FancyVerbLine}}}%line number color
+  \begin{lrbox}{\Resbox}%
+  \begin{minipage}[t]{\linewidth-1\fboxsep}%
+  \color{black}% text color
+  }
+  {%\ignorespacesafterend%
+  \end{minipage}%
+  \end{lrbox}%
+  \colorbox{result_lightyellow}{\usebox{\Resbox}}
+  }
+
+\DefineVerbatimEnvironment%
+{result}{Verbatim}
+{fontfamily=courier,
+ fontseries=b,
+ fontsize=\footnotesize,
+ gobble=2,
+ baselinestretch=1,
+% numbers=left,
+% numbersep=2mm,
+ commandchars=\\\{\},
+ codes={\catcode`$=3\catcode`^=7}
+}
+
+\usepackage{setspace}
+\usepackage{multicol}
+\usepackage{parskip}
+
+%algorithm
+\usepackage[procnumbered,ruled,vlined,linesnumbered]{algorithm2e}
+\newcommand\mycommentfont[1]{\footnotesize\ttfamily\textcolor{blue}{#1}}
+\SetCommentSty{mycommentfont}% create my own comment font
+\newcounter{procedure}
+\makeatletter
+\AtBeginEnvironment{procedure}{\let\c@algocf\c@procedure}
+\makeatother
+\SetProcNameSty{textsc}
+\SetProcArgSty{textsc}
+
+\newenvironment{method}[1][htb]
+  {\renewcommand{\algorithmcfname}{Method}% Update algorithm name
+   \begin{algorithm}[#1]%
+  }{\end{algorithm}}
+
+\newcommand{\startSequence}{\boldsymbol{[}}
+\newcommand{\stopSequence}{\boldsymbol{]}}
+
+\newenvironment{Pseudocode}[1][htb]
+{\renewcommand{\algorithmcfname}{Pseudocode}%
+ \begin{algorithm}[#1]%
+}{\end{algorithm}}
+
+\newcommand{\typedAlg}[1]{\typed{\mbox{\scshape Diff}}{ #1}}
+\newcommand{\typedPS}[1]{\typed{\mbox{\scshape PartialSolution}}{ #1}}
+\newcommand{\typedExpand}[1]{\typed{\mbox{\scshape Expand}}{#1}}
+
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\addtolength{\headwidth}{\marginparsep}
+\setlength{\marginparwidth}{1.2in}
+\addtolength{\headwidth}{\marginparwidth}
+
+\let\oldmarginpar\marginpar
+\renewcommand\marginpar[1]{\-\oldmarginpar[\raggedleft\footnotesize #1]{\raggedright\footnotesize\color{red} #1}}
+\marginparsep = 10pt % 10pt far away from text body
+
+\usepackage[nottoc]{tocbibind}
+
+%\pagestyle{plain}        % if don't want page numbers:empty
+\lhead{Ph.D. Thesis}
+\chead{}
+\rhead{\leftmark}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+%\rfoot{Printed Date: \today}
+
+
+\renewcommand{\headrulewidth}{0pt}
+\baselineskip 16pt       % 16 pt usual spacing between lines
+%\linespread{2.5}            % spacing between lines (1.3=1.5times of a line, 1.6=2times of a line)
+\topmargin -1cm
+\oddsidemargin -0.04cm
+\evensidemargin -0.04cm
+\textwidth 16.59cm
+\textheight 23.94cm
+\parskip 7.2pt           % sets spacing between paragraphs
+\parindent 20pt		     % sets leading space for paragraphs
+
+\usepackage[pdfstartview=FitH]{hyperref}
+\hypersetup{colorlinks,
+        linkcolor=black,
+        filecolor=black,
+        urlcolor=blue,
+        citecolor=black,
+        pdftitle={For Alstom},
+        pdfauthor={             },
+        pdfsubject={            },
+        pdfkeywords={           },
+        pdfproducer={ps2pdf} }
+
+\usepackage{longtable}
+\usepackage{marginnote}
+\usepackage{titlesec}
+  \titleformat{\chapter}[display]
+            {\Huge\bfseries}{Chapter \thechapter}{20pt}{}
+  \titleformat{\section}
+             {\normalfont\Large\bfseries}{\thesection}{14pt}{\Large}
+  \titlespacing*{\chapter}{0pt}{0pt}{15pt} %left, beforesep, aftersep, right
+ \titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+
+\usepackage[round]{natbib}%this package I used here for display the bibliography on harvard style
+\usepackage[titletoc]{appendix}
+
+% Literature Review -- diff Algorithms
+\newcommand{\emptystr}{\Lambda}
+% application operators format
+
+
+
+% Contents' Name
+\renewcommand{\contentsname}{Table of Contents}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\pagestyle{plain}
+\frontmatter
+
+\begin{titlepage}
+\ \\ \ \\
+\centering
+\rule{\textwidth}{1pt}\par
+%%{\LARGE \bfseries A Difference Calculus FOR STRUCTURED DATA\\}
+{\Huge \bfseries Satir Europe Ireland\\}
+{\Huge \bfseries Proposal Report\\}
+\rule{\textwidth}{1pt}\par
+%{\large\bfseries Apply to Spreadsheets\\}
+
+\large Business Intelligence and Business Analytics CA2\\
+
+\ \\ \ \\
+\raggedleft
+\large Jia Lin x22117644 \\
+\large Antonio Bernal x17168571\\
+\large Maria Claudia Morazzoni x19163461\\
+\ \\
+\normalsize Postgraduate Diploma in Science in Data Analytics\\
+\normalsize National College of Ireland \ \\ 
+%\begin{mdframed}
+%\textcolor{red}{CH-0}: Christian Reviews First Time\\
+%\textcolor{pink}{CH-1}: Christian Reivews Second Time\\
+%\textcolor{blue}{PFV}: Proposed Final Version\\
+%\textcolor{green}{CH-F}: Christian Confirmed as Final Version
+%\end{mdframed}
+\ \\ \ \\ \ \\
+\centering
+\large Lecture:  Jorge Basilio\\
+\ \\
+\normalsize Feb 2023
+%\today
+\end{titlepage}
+
+
+
+%\cleardoublepage
+%\newpage
+%\chapter{Acknowledgements}
+
+\chapter{Proposal}
+\section{Team Member}
+Jia Lin x22117644@student.ncirl.ie
+Antonio Bernal x17168571@student.ncirl.ie
+Maria Claudia Morazzoni x19163461@student.ncirl.ie
+
+\section{Target Company}
+Satir Europe Ireland (\url{https://satir.com})
+\section{Software Application to Use}
+\begin{itemize}
+\item Team Collaboration Work: GitHub
+\item System Design: Salesforce
+\item Reporting Dashboard: Microsoft Power BI
+\end{itemize}
+
+
+\section{Task Timetable}
+\begin{itemize}
+\item Week1 19 Feb. Proposal
+\item Week2 26 Feb.
+\item Week3 05 Mar.
+\item Week4 12 Mar.
+\item Week5 19 Mar.
+\item Week6 26 Mar.
+\item Week7 02 Apr.
+\item Week8 09 Apr.
+\item Week9 16 Apr.
+\item Week10 23 Apr.
+\item Week11 30 Apr.
+\item Week12 07 May. The Implementation Report Done
+\item Week13 14 May. The Pre-Recorded Video Presentation
+\end{itemize}
+   
+\chapter{Abstract}
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\contentsname}
+\tableofcontents\thispagestyle{plain}
+
+%\cleardoublepage
+%\phantomsection
+%\renewcommand{\listtheoremname}{List of Definitions}
+%\listoftheorems[ignoreall, onlynamed={Definition, Theorem}]
+
+%\cleardoublepage
+%\phantomsection
+%\addcontentsline{toc}{chapter}{\listfigurename}
+%\listoffigures
+
+\mainmatter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Chapter 1 Induction
+\cleardoublepage
+\chapter{Background Information and Marketplace}\label{chp:Introduction}
+\chapter{Scope of Processes}
+\chapter{System Design}
+  \section{Overview}
+  \section{Data Capture Points}
+  \section{Analytical Requirements}
+  \section{Integration of Customer}
+  \section{Dashboard}
+\chapter{Database Design}
+  \section{Entity-relationship diagrams}
+  \section{Data dictionary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\cleardoublepage
+%\renewcommand{\bibname}{References}
+%\bibliographystyle{chicago}%apalike is another bib style which can be replaced with chicago
+%\bibliography{Mybib}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\titleformat{\chapter}[display]
+%           {\Huge\Large\bfseries}{Appendix \Alph{chapter}}{11pt}{}
+%\begin{appendices}
+%\renewcommand{\thechapter}{\Alph{chapter}.}
+%\cleardoublepage
+%\chapter{Conventions and Terminologies}\label{chp:ConventionsAndTerminologies}
+%  \begin{center}
+ % \begin{longtable}[h]{l|l}
+%  \caption[Conventions and Terminologies]{Conventions and Terminologies} \label{tab:Conventions and Terminologies} \\
+
+%  \hline \multicolumn{1}{c|}{\textbf{Term(s)}}& \multicolumn{1}{c}{\textbf{Explanations}}\\ \hline
+%  \endfirsthead
+
+%  \multicolumn{2}{c}%
+%  {{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+%  \hline \multicolumn{1}{c|}{\textbf{Term(s)}}
+%       & \multicolumn{1}{c}{\textbf{Explanations}}\\ \hline
+%  \endhead
+
+%  \hline \multicolumn{2}{c}{{Continued on next page}} \\ \hline
+%  \endfoot
+
+%  \hline \hline
+%  \endlastfoot
+% &
+%  \end{longtable}
+%  \end{center}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%  \end{appendices}
+
+\end{document}
